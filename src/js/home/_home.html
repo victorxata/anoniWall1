@@ -1,21 +1,5 @@
 <div class="home-wrapper">
-    <!--<div class="home">-->
-        <!--<h1>Home</h1>-->
 
-        <!--<div ng-repeat="brick in bricks">-->
-            <!--<h3>{{brick.id}}</h3>-->
-            <!--<h2>{{brick.name}}</h2>-->
-        <!--</div>-->
-
-        <!--<div-->
-                <!--class='image-builder'-->
-                <!--parent-click="fabric.deactivateAll()">-->
-            <!--<div class='fabric-container'>-->
-                <!--<canvas fabric='fabric'></canvas>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
     <div class='image-builder-container'>
         <div ng-if="fabric.isLoading()" class="image-loading">
             <div class="loading-indicator"></div>
@@ -24,7 +8,8 @@
 
 
         <div class="col-xs-2">
-        <div class="row">
+            <label>New Elements</label>
+            <div class="row">
             <div class="col-xs-12">
                 <button ng-click='addImage()' class='btn btn-default'>
                     <i class='fa fa-image'></i>
@@ -51,38 +36,14 @@
                 <input type="text" class='form-control' ng-change='fabric.setDirty(true); fabric.stopContinuousRendering()' ng-model="fabric.canvasBackgroundColor" />
             </div>
 
-            <div class='col-xs-12'>
 
-            </div>
-            <div class="col-xs-12">
-
-                <label>Elements</label>
-                <br />
-                <div class='row'>
-                    <div class='col-xs-12'>
-                        <form ng-submit='setCanvasElements()'>
-                            <div class='form-group'>
-                                <label>Width</label>
-                                <input type='text' ng-model='canvasElements.width' class='form-control' />
-                            </div>
-
-                            <div class='form-group'>
-                                <label>Height</label>
-                                <input type='text' ng-model='canvasElements.height' class='form-control' />
-                            </div>
-
-                            <!--<button type='submit' class='btn btn-success'>-->
-                                <!--Submit-->
-                            <!--</button>-->
-                        </form>
-                    </div>
-                </div>
-            </div>
             <div class='col-xs-12'>
                 <input type='range' class='pull-left' min='.1' max='3' step='.1' ng-change='fabric.setZoom()' ng-model='fabric.canvasScale' />
             </div>
+
             <div class="col-xs-12">
-                <div ng-if='fabric.selectedObject.type==="text"'>
+                <div ng-if='fabric.selectedObject'>
+                    <label>Properties</label>
                     <div ng-switch='fabric.selectedObject.type'>
                         <div ng-switch-when='text'>
                             <p>
@@ -164,6 +125,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
+                            Transparency
                             <input class='col-sm-12' title="Transparency" type='range'
                                    min="0"
                                    max="1"
@@ -179,13 +141,31 @@
                             </button>
                         </div>
                     </div>
+                    <br/>
+                    <label>Filters</label>
+                    <div class="row" ng-hide="fabric.selectedObject.type !== 'image'">
+                        Grayscale&nbsp<input type="checkbox" value="Grayscale" ng-change="setToGrayscale()" ng-model="grayscale"/>
+                    </div>
 
-                    <div class="row" ng-hide="fabric.selectedObject.type == 'image'">
+                    <div class="row" ng-hide="fabric.selectedObject.type !== 'image'">
+                        <div class="col-sm-12">
+                            Brightness
+                            <input class='col-sm-12' title="Brightness" type='range'
+                                   min="0"
+                                   max="1"
+                                   step=".01"
+                                   ng-model="brightness"/>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-hide="fabric.selectedObject.type === 'image'">
                         <div class="col-sm-12">
                             <input type="text" class='form-control' ng-model="fabric.selectedObject.fill" />
                         </div>
                     </div>
 
+<br/>
+                    <label>General</label>
                     <div class="row">
                         <div class="btn-group col-xs-12 btn-group-vertical">
                             <button ng-click='fabric.center()' class='btn btn-small btn-block'>
@@ -223,6 +203,9 @@
                             </button>
                         </div>
                     </div>
+                    <button type='submit' class='btn btn-success' ng-click="save(); fabric.setDirty(false);">
+                        Save
+                    </button>
                 </div>
             </div>
 
@@ -230,159 +213,7 @@
         </div>
         <br />
 
-        <!--<div class='row'>-->
-            <!--<div class='col-xs-3'>-->
-                <!--<div ng-if='fabric.selectedObject'>-->
-                    <!--<div ng-switch='fabric.selectedObject.type'>-->
-                        <!--<div ng-switch-when='text'>-->
-                            <!--<p>-->
-                                <!--<textarea style="text-align: {{ fabric.selectedObject.textAlign }}" class="form-control" rows="6" ng-model="fabric.selectedObject.text"></textarea>-->
-                            <!--</p>-->
 
-                            <!--<p title="Font size">-->
-                                <!--<i class="fa fa-text-height"></i>-->
-                                <!--<input type='number' class="form-control" ng-model="fabric.selectedObject.fontSize" />-->
-                            <!--</p>-->
-
-                            <!--<p title="Line height">-->
-                                <!--<i class="fa fa-align-left"></i>-->
-                                <!--<input type='number' class="form-control" ng-model="fabric.selectedObject.lineHeight" step=".1" />-->
-                            <!--</p>-->
-
-                            <!--<div class='btn-group'>-->
-                                <!--<button ng-class="{ active: fabric.selectedObject.textAlign == 'left' }" ng-click="fabric.selectedObject.textAlign = 'left'" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-align-left'></i>-->
-                                <!--</button>-->
-
-                                <!--<button ng-class="{ active: fabric.selectedObject.textAlign == 'center' }" ng-click="fabric.selectedObject.textAlign = 'center'" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-align-center'></i>-->
-                                <!--</button>-->
-
-                                <!--<button ng-class="{ active: fabric.selectedObject.textAlign == 'right' }" ng-click="fabric.selectedObject.textAlign = 'right'" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-align-right'></i>-->
-                                <!--</button>-->
-                            <!--</div>-->
-
-                            <!--<br />-->
-
-                            <!--<div class='btn-group'>-->
-                                <!--<button ng-class="{ active: fabric.isBold() }" ng-click="fabric.toggleBold()" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-bold'></i>-->
-                                <!--</button>-->
-
-                                <!--<button ng-class="{ active: fabric.isItalic() }" ng-click="fabric.toggleItalic()" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-italic'></i>-->
-                                <!--</button>-->
-
-                                <!--<button ng-class="{ active: fabric.isUnderline() }" ng-click="fabric.toggleUnderline()" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-underline'></i>-->
-                                <!--</button>-->
-
-                                <!--<button ng-class="{ active: fabric.isLinethrough() }" ng-click="fabric.toggleLinethrough()" class='btn btn-small'>-->
-                                    <!--<i class='fa fa-strikethrough'></i>-->
-                                <!--</button>-->
-                            <!--</div>-->
-
-                            <!--<br />-->
-
-                            <!--<div class="row">-->
-                                <!--<div class="btn-group col-sm-12">-->
-                                    <!--<a class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" href="#">-->
-                    <!--<span class='object-font-family-preview' style='font-family: "{{ fabric.selectedObject.fontFamily }}";'>-->
-                      <!--{{ fabric.selectedObject.fontFamily }}-->
-                    <!--</span>-->
-                                        <!--<span class="caret"></span>-->
-                                    <!--</a>-->
-                                    <!--<ul class="dropdown-menu">-->
-                                        <!--<li ng-repeat='font in FabricConstants.fonts' ng-click='fabric.selectedObject.fontFamily = font.name' style='font-family: "{{ font.name }}";'>-->
-                                            <!--<a>{{ font.name }}</a>-->
-                                        <!--</li>-->
-                                    <!--</ul>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div ng-switch-when="image">-->
-                            <!--<div class="input-prepend">-->
-                                <!--<button ng-class="{ active: fabric.isTinted() }" ng-click="fabric.toggleTint()" class='btn'>-->
-                                    <!--<i class='fa fa-tint'></i>-->
-                                <!--</button>-->
-                                <!--<input type="text" class='input-small' ng-model='fabric.selectedObject.tint' />-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="row">-->
-                        <!--<div class="col-sm-12">-->
-                            <!--<input class='col-sm-12' title="Transparency" type='range'-->
-                                   <!--min="0"-->
-                                   <!--max="1"-->
-                                   <!--step=".01"-->
-                                   <!--ng-model="fabric.selectedObject.opacity" />-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="row mbm">-->
-                        <!--<div class="col-sm-12">-->
-                            <!--<button class='btn btn-small btn-block' ng-class="{ active: fabric.getFlipX() }" ng-click="{ active: fabric.toggleFlipX() }">-->
-                                <!--<i class='fa fa-exchange'></i> Flip-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="row" ng-hide="fabric.selectedObject.type == 'image'">-->
-                        <!--<div class="col-sm-12">-->
-                            <!--<input type="text" class='form-control' ng-model="fabric.selectedObject.fill" />-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<div class="row">-->
-                        <!--<div class="btn-group col-xs-12 btn-group-vertical">-->
-                            <!--<button ng-click='fabric.center()' class='btn btn-small btn-block'>-->
-                                <!--Center-->
-                            <!--</button>-->
-
-                            <!--<button ng-click='fabric.centerH()' class='btn btn-small btn-block'>-->
-                                <!--Center Horizontally-->
-                            <!--</button>-->
-
-                            <!--<button ng-click='fabric.centerV()' class='btn btn-small btn-block'>-->
-                                <!--Center Vertically-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<br />-->
-
-                    <!--<div class="row">-->
-                        <!--<div class="btn-group col-xs-12 btn-group-vertical">-->
-                            <!--<button ng-click='fabric.bringToFront(); fabric.setDirty(true)' class='btn btn-small btn-block'>-->
-                                <!--Bring to front-->
-                            <!--</button>-->
-
-                            <!--<button ng-click='fabric.bringForward(); fabric.setDirty(true)' class='btn btn-small btn-block'>-->
-                                <!--Bring forwards-->
-                            <!--</button>-->
-
-                            <!--<button ng-click='fabric.sendBackwards(); fabric.setDirty(true)' class='btn btn-small btn-block'>-->
-                                <!--Send backwards-->
-                            <!--</button>-->
-
-                            <!--<button ng-click='fabric.sendToBack(); fabric.setDirty(true)' class='btn btn-small btn-block'>-->
-                                <!--Send to back-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <!--<br />-->
-
-                    <!--<button ng-click='fabric.toggleLockActiveObject(); fabric.setDirty(true)' ng-class="{ active: fabric.selectedObject.lockObject }" class='btn btn-small btn-block'>-->
-                        <!--Lock-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        <!--</div>-->
     </div>
     <div class='col-xs-10'>
     <div class='image-builder' parent-click="fabric.deactivateAll()">

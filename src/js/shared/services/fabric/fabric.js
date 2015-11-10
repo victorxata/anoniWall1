@@ -314,6 +314,17 @@ angular.module('common.fabric', [
 			setActiveProp('text', value);
 		};
 
+		self.setToGrayscale = function(object){
+
+			object.filters.push(new fabric.Image.filters.Grayscale());
+			object.applyFilters(canvas.renderAll.bind(canvas));
+		};
+
+		self.brightness = function(object, value){
+			object.filters.push(new fabric.Image.filters.Brightness({ brightness: value }));
+			object.applyFilters(canvas.renderAll.bind(canvas));
+		};
+
 		//
 		// Font Size
 		// ==============================================================

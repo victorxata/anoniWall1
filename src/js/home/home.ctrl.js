@@ -3,9 +3,15 @@
  */
 'use strict';
 angular.module('Home')
-    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window', '$timeout', 'FabricWindow',
-        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window, $timeout, FabricWindow) {
+    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window',
+        '$timeout', 'FabricWindow', 'geolocation',
+        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window,
+                 $timeout, FabricWindow, geolocation) {
 
+            geolocation.getLocation().then(function(data){
+                $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+                console.log($scope.coords);
+            });
             $scope.windowWidth = document.documentElement.clientWidth;
             $scope.windowHeight = document.documentElement.clientHeight;
             $scope.fabric = {};
@@ -160,5 +166,22 @@ angular.module('Home')
             //====================================================
             //
             //
+
+            $scope.save = function(){
+                alert('Saving...');
+                console.log('Saving...');
+            };
+
+            $scope.grayscale = false;
+            $scope.brightness = 100;
+
+            $scope.$watch($scope.brightness, function(){
+                $scope.fabric.brightness($scope.fabric.selectedObject, $scope.brightness);
+            });
+
+            $scope.setToGrayscale = function(){
+                alert('Grayscale...');
+                $scope.fabric.setToGrayscale($scope.fabric.selectedObject);
+            }
 
     }]);

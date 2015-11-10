@@ -8,7 +8,8 @@
       "bower_components/angular-tooltips/dist/angular-tooltips.min.js",
       "bower_components/fabric.js/dist/fabric.js",
       "bower_components/bootstrap/dist/js/bootstrap.min.js",
-      "bower_components/Keypress/keypress.js"
+      "bower_components/Keypress/keypress.js",
+      "bower_components/angularjs-geolocation/dist/angularjs-geolocation.min.js"
     ],
     "css":[
       "bower_components/font-awesome/css/font-awesome.min.css",

@@ -7,10 +7,7 @@ angular.module('anoniWall', [
     'common.fabric',
     'common.fabric.constants',
     'common.fabric.utilities',
-    //'common.fabric.canvas',
-    //'common.fabric.directive',
-    //'common.fabric.dirtyStatus',
-    //'common.fabric.window',
+    'geolocation',
     'Home',
     'shared.services.bricks'
 ]);
