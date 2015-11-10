@@ -103,6 +103,13 @@
                 </button>
             </div>
             <div class="col-xs-12">
+                <button ng-click='addRect()' class='btn btn-default'>
+                    <i class='fa fa-square'></i>
+                    <div class='clearfix'></div>
+                    Image
+                </button>
+            </div>
+            <div class="col-xs-12">
                 <label>Background</label>
                 <input type="text" class='form-control' ng-change='fabric.setDirty(true); fabric.stopContinuousRendering()' ng-model="fabric.canvasBackgroundColor" />
             </div>

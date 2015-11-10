@@ -37,8 +37,11 @@ angular.module('Home')
             //});
             //
             //$scope.fabric.addObjectToCanvas(brick);
-            $scope.fabric.addRect(100, 100, 'red', 20, 20);
 
+            $scope.addRect = function() {
+
+                $scope.fabric.addRect(100, 100, 'red', 20, 20);
+            }
             //
             // Editing Canvas Size
             // ================================================================
@@ -57,7 +60,9 @@ angular.module('Home')
                 $scope.fabric.setDirty(true);
                 delete $scope.canvasCopy;
             };
-
+            //====================================================
+            //
+            //
 
             //
             // Init
@@ -74,11 +79,14 @@ angular.module('Home')
             };
 
             $scope.$on('canvas:created', $scope.init);
+            //====================================================
+            //
+            //
 
-            //Keypress.onSave(function() {
-            //    $scope.updatePage();
-            //});
-
+            //
+            //
+            // Resize browser
+            //====================================================
             $scope.$watch($scope.windowWidth, function(){
                 if ($scope.run)
                     $scope.initializeCanvas();
@@ -95,19 +103,19 @@ angular.module('Home')
 
             $(window).on('resize.doResize', function () {
                 var newWidth = window.innerWidth,
-                    updateStuffTimer;
+                    updateCanvasDimensions;
                 var newHeight = window.innerHeight,
-                    updateStuffTimer;
+                    updateCanvasDimensions;
 
                 if (newHeight !== $scope.windowHeight){
-                    $timeout.cancel(updateStuffTimer);
+                    $timeout.cancel(updateCanvasDimensions);
                 }
 
                 if (newWidth !== $scope.windowWidth) {
-                    $timeout.cancel(updateStuffTimer);
+                    $timeout.cancel(updateCanvasDimensions);
                 }
 
-                updateStuffTimer = $timeout(function() {
+                updateCanvasDimensions = $timeout(function() {
                     $scope.windowWidth = newWidth;
                     $scope.windowHeight = newHeight;
                     $scope.fabric.setCanvasSize($scope.windowWidth - $scope.canvasMargin, $scope.windowHeight - $scope.headerHeight);
@@ -117,4 +125,8 @@ angular.module('Home')
             $scope.$on('$destroy',function (){
                 $(window).off('resize.doResize'); // remove the handler added earlier
             });
+            //====================================================
+            //
+            //
+
     }]);
