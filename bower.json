@@ -1,0 +1,27 @@
+{
+  "name": "anoniwall",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "victorxata"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "angular-tooltips": "~0.1.25",
+    "font-awesome": "~4.4.0",
+    "bootstrap": "~3.3.5",
+    "Keypress": "~2.1.3"
+  }
+}

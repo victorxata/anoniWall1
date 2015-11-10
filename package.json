@@ -1,0 +1,20 @@
+{
+  "name": "anoniwall",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "victorxata",
+  "license": "ISC",
+  "dependencies": {
+    "globule": "^0.2.0",
+    "gulp-angular-embed-templates": "^0.1.6",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-html-replace": "^1.5.4",
+    "gulp-ng-config": "^1.2.1",
+    "imagemin": "^4.0.0",
+    "jshint-stylish": "^2.0.1"
+  }
+}
