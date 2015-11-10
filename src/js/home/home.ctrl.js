@@ -3,8 +3,8 @@
  */
 'use strict';
 angular.module('Home')
-    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window', '$timeout',
-        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window, $timeout) {
+    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window', '$timeout', 'FabricWindow',
+        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window, $timeout, FabricWindow) {
 
             $scope.windowWidth = document.documentElement.clientWidth;
             $scope.windowHeight = document.documentElement.clientHeight;
@@ -15,18 +15,21 @@ angular.module('Home')
             $scope.headerHeight = 50;
             $scope.canvasMargin = 0;
 
-            bricksService.getBricks().then(function(bricks){
-                $scope.bricks = bricks;
-            });
+            $scope.objects = [];
 
             //
             // Creating Canvas Objects
             // ================================================================
 
 
-            $scope.addImage = function(image) {
-                $scope.fabric.addImage('img/13c6890.jpg');
+            $scope.addImage = function() {
+                var image = $scope.fabric.addImage('img/13c6890.jpg', function(object){
+                    $scope.objects.push(object);
+                    console.log('selected image: ', object.id);
+                    console.log('objects: ', $scope.objects);
+                });
             };
+
 
             //var brick = new $window.fabric.kanvas.Rect({
             //    left: 100,
@@ -40,8 +43,13 @@ angular.module('Home')
 
             $scope.addRect = function() {
 
-                $scope.fabric.addRect(100, 100, 'red', 20, 20);
-            }
+                var rect = $scope.fabric.addRect(100, 100, 'red', 40, 40, function(object){
+                    $scope.objects.push(object);
+                    console.log('selected rect: ', object.id);
+                    console.log('objects: ', $scope.objects);
+                });
+
+            };
             //
             // Editing Canvas Size
             // ================================================================
@@ -76,9 +84,25 @@ angular.module('Home')
                 });
                 $scope.fabric.setCanvasSize($scope.windowWidth - $scope.canvasMargin, $scope.windowHeight - $scope.headerHeight);
                 $scope.run = true;
+
+
+                bricksService.getBricks().then(function(bricks){
+                    $scope.bricks = bricks;
+                });
             };
 
             $scope.$on('canvas:created', $scope.init);
+
+            var selected = FabricWindow.selectedObject;
+
+            $scope.$watch(FabricWindow.selectedObject, function(){
+                console.log(FabricWindow.selectedObject);
+            });
+
+            bricksService.getBricks().then(function(bricks){
+                $scope.bricks = bricks;
+            });
+
             //====================================================
             //
             //

@@ -214,6 +214,7 @@ angular.module('common.fabric', [
 			object.bringToFront();
 			self.center();
 			self.render();
+			return object;
 		};
 
 
@@ -221,7 +222,7 @@ angular.module('common.fabric', [
 		//
 		// Add Rect
 		//===============================================================
-		self.addRect = function(vleft, vtop, vfill, vwidth, vheight){
+		self.addRect = function(vleft, vtop, vfill, vwidth, vheight, callbackOn){
 			var rect = new fabric.Rect({
 				left: vleft,
 				top: vtop,
@@ -231,12 +232,16 @@ angular.module('common.fabric', [
 			});
 
 			canvas.add(rect);
+
+			rect.on('selected', callbackOn(rect));
+
+			return rect;
 		};
 
 		//
 		// Image
 		// ==============================================================
-		self.addImage = function(imageURL) {
+		self.addImage = function(imageURL, callbackOn) {
 			fabric.Image.fromURL(imageURL, function(object) {
 				object.id = self.createId();
 
@@ -253,8 +258,11 @@ angular.module('common.fabric', [
 				object.filters.push(filter);
 				object.applyFilters(canvas.renderAll.bind(canvas));
 
+				object.on('selected', callbackOn(object));
+
 				self.addObjectToCanvas(object);
 			}, self.imageDefaults);
+
 		};
 
 		//
@@ -279,6 +287,8 @@ angular.module('common.fabric', [
 
 				self.addObjectToCanvas(object);
 			});
+
+			return object;
 		};
 
 		//
@@ -290,6 +300,8 @@ angular.module('common.fabric', [
 			object.id = self.createId();
 
 			self.addObjectToCanvas(object);
+
+			return object;
 		};
 
 		self.getText = function() {
