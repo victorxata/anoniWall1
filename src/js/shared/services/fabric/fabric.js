@@ -294,12 +294,14 @@ angular.module('common.fabric', [
 		//
 		// Text
 		// ==============================================================
-		self.addText = function(str) {
+		self.addText = function(str, callbackOn) {
 			str = str || 'New Text';
 			var object = new FabricWindow.Text(str, self.textDefaults);
 			object.id = self.createId();
 
 			self.addObjectToCanvas(object);
+
+			object.on('selected', callbackOn(object));
 
 			return object;
 		};

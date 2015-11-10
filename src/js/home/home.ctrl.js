@@ -50,6 +50,14 @@ angular.module('Home')
                 });
 
             };
+
+            $scope.addText = function(){
+                $scope.fabric.addText('New Text', function(object){
+                    $scope.objects.push(object);
+                    console.log('selected text: ', object.id);
+                    console.log('objects: ', $scope.objects);
+                });
+            };
             //
             // Editing Canvas Size
             // ================================================================
