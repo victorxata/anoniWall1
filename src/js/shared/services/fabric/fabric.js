@@ -320,8 +320,9 @@ angular.module('common.fabric', [
 			object.applyFilters(canvas.renderAll.bind(canvas));
 		};
 
-		self.brightness = function(object, value){
-			object.filters.push(new fabric.Image.filters.Brightness({ brightness: value }));
+		self.setToColor = function(object){
+
+			object.filters.pop(new fabric.Image.filters.Grayscale());
 			object.applyFilters(canvas.renderAll.bind(canvas));
 		};
 

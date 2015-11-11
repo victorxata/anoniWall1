@@ -4,11 +4,10 @@
 'use strict';
 angular.module('Home', [])
     .config(function($stateProvider){
-        $stateProvider
-            .state('home', {
-                url: '/home',
-                controllerAs: 'home',
-                templateUrl: '_home.html',
-                controller: 'homeCtrl'
-            });
+        $stateProvider.state('home', {
+            url: '/home',
+            controllerAs: 'home',
+            templateUrl: '_home.html',
+            controller: 'homeCtrl'
+        });
     });

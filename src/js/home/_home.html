@@ -1,36 +1,38 @@
-<div class="home-wrapper">
+<div class="header container">
+
+    <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><strong>x</strong>World</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a ui-sref="home">Home</a></li>
+
+                <li class="active">Coords: <span>{{coords}}</span></li>
+            </ul>
+        </div>
+
+
+    </div>
+</div>
+<div class="home">
 
     <div class='image-builder-container'>
         <div ng-if="fabric.isLoading()" class="image-loading">
             <div class="loading-indicator"></div>
         </div>
-
-
-
         <div class="col-xs-2">
-            <label>New Elements</label>
+
             <div class="row">
-            <div class="col-xs-12">
-                <button ng-click='addImage()' class='btn btn-default'>
-                    <i class='fa fa-image'></i>
-                    <div class='clearfix'></div>
-                    Image
-                </button>
-            </div>
-            <div class="col-xs-12">
-                <button ng-click='addRect()' class='btn btn-default'>
-                    <i class='fa fa-square'></i>
-                    <div class='clearfix'></div>
-                    Square
-                </button>
-            </div>
-            <div class="col-xs-12">
-                <button ng-click='addText()' class='btn btn-default'>
-                    <i class='fa fa-font'></i>
-                    <div class='clearfix'></div>
-                    Text
-                </button>
-            </div>
+
+
             <div class="col-xs-12">
                 <label>Background</label>
                 <input type="text" class='form-control' ng-change='fabric.setDirty(true); fabric.stopContinuousRendering()' ng-model="fabric.canvasBackgroundColor" />
@@ -142,29 +144,20 @@
                         </div>
                     </div>
                     <br/>
-                    <label>Filters</label>
+
                     <div class="row" ng-hide="fabric.selectedObject.type !== 'image'">
                         Grayscale&nbsp<input type="checkbox" value="Grayscale" ng-change="setToGrayscale()" ng-model="grayscale"/>
                     </div>
 
-                    <div class="row" ng-hide="fabric.selectedObject.type !== 'image'">
-                        <div class="col-sm-12">
-                            Brightness
-                            <input class='col-sm-12' title="Brightness" type='range'
-                                   min="0"
-                                   max="1"
-                                   step=".01"
-                                   ng-model="brightness"/>
-                        </div>
-                    </div>
 
                     <div class="row" ng-hide="fabric.selectedObject.type === 'image'">
+                        <label>Fill</label>
                         <div class="col-sm-12">
                             <input type="text" class='form-control' ng-model="fabric.selectedObject.fill" />
                         </div>
                     </div>
 
-<br/>
+                    <br/>
                     <label>General</label>
                     <div class="row">
                         <div class="btn-group col-xs-12 btn-group-vertical">
@@ -208,18 +201,32 @@
                     </button>
                 </div>
             </div>
-
         </div>
         </div>
-        <br />
-
-
     </div>
+
     <div class='col-xs-10'>
-    <div class='image-builder' parent-click="fabric.deactivateAll()">
-        <div class='fabric-container'>
-            <canvas fabric='fabric'></canvas>
+        <div class='image-builder' parent-click="fabric.deactivateAll()">
+            <div class='fabric-container'>
+                <canvas fabric='fabric'></canvas>
+            </div>
         </div>
     </div>
+
 </div>
+
+<div class="addMenu">
+    <ul class="list-inline">
+        <li>
+            <div class="btn-round" ng-click="addRect()"><span>+&nbsp</span><i class='fa fa-square'></i></div>
+        </li>
+        <li>
+            <div class="btn-round blue" ng-click="addImage()"><span>+&nbsp</span><i class='fa fa-image'></i></div>
+        </li>
+        <li>
+            <div class="btn-round green" ng-click="addText()"><span>+&nbsp</span><i class='fa fa-font'></i></div>
+        </li>
+    </ul>
+
 </div>
+

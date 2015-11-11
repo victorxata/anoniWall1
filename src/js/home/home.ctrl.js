@@ -3,22 +3,22 @@
  */
 'use strict';
 angular.module('Home')
-    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window',
-        '$timeout', 'FabricWindow', 'geolocation',
-        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window,
-                 $timeout, FabricWindow, geolocation) {
+    .controller('homeCtrl', ['$scope', 'Fabric', 'FabricConstants', 'Keypress', 'bricksService', '$window', '$timeout', 'geolocation',
+        function($scope, Fabric, FabricConstants, Keypress, bricksService, $window, $timeout, geolocation) {
 
             geolocation.getLocation().then(function(data){
                 $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
                 console.log($scope.coords);
+
             });
+
             $scope.windowWidth = document.documentElement.clientWidth;
             $scope.windowHeight = document.documentElement.clientHeight;
             $scope.fabric = {};
             $scope.FabricConstants = FabricConstants;
             $scope.bricks = [];
             console.log('Dentro de home');
-            $scope.headerHeight = 50;
+            $scope.headerHeight = 75;
             $scope.canvasMargin = 0;
 
             $scope.objects = [];
@@ -107,12 +107,6 @@ angular.module('Home')
 
             $scope.$on('canvas:created', $scope.init);
 
-            var selected = FabricWindow.selectedObject;
-
-            $scope.$watch(FabricWindow.selectedObject, function(){
-                console.log(FabricWindow.selectedObject);
-            });
-
             bricksService.getBricks().then(function(bricks){
                 $scope.bricks = bricks;
             });
@@ -173,15 +167,14 @@ angular.module('Home')
             };
 
             $scope.grayscale = false;
-            $scope.brightness = 100;
 
-            $scope.$watch($scope.brightness, function(){
-                $scope.fabric.brightness($scope.fabric.selectedObject, $scope.brightness);
-            });
 
             $scope.setToGrayscale = function(){
-                alert('Grayscale...');
-                $scope.fabric.setToGrayscale($scope.fabric.selectedObject);
+                if ($scope.grayscale === true) {
+                    $scope.fabric.setToGrayscale($scope.fabric.selectedObject);
+                } else{
+                    $scope.fabric.setToColor($scope.fabric.selectedObject);
+                }
             }
 
     }]);

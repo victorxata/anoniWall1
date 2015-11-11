@@ -6,6 +6,7 @@ angular.module('shared.services.bricks', [])
     .factory('bricksService', function($q){
 
         return {
+
             getBricks: function(){
                 var defer = $q.defer();
 
@@ -13,7 +14,7 @@ angular.module('shared.services.bricks', [])
                     id: 'id1', name:'name1'
                 },{
                     id: 'id2', name:'name2'
-                },
+                }
                 ];
 
                 defer.resolve(mockdata);
