@@ -7,7 +7,10 @@ angular.module('Home')
         function($scope, Fabric, FabricConstants, Keypress, bricksService, $window, $timeout, geolocation) {
 
             geolocation.getLocation().then(function(data){
-                $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+                $scope.coords = {
+                    lat: Math.floor(data.coords.latitude * 10000)/10000,
+                    long: Math.floor(data.coords.longitude * 10000)/10000
+                };
                 console.log($scope.coords);
 
             });

@@ -1,6 +1,6 @@
 <div class="header container">
 
-    <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="navbar navbar-default navbar-fixed-top navbar-xworld">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -8,14 +8,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><strong>x</strong>World</a>
+            <a class="navbar-brand" ui-sref="home"><strong>x</strong>World</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a ui-sref="home">Home</a></li>
 
-                <li class="active">Coords: <span>{{coords}}</span></li>
+            <ul class="nav navbar-nav pull-right top15px">
+                <li class="">Coords: <span>{{coords}}</span></li>
             </ul>
         </div>
 
