@@ -20,6 +20,11 @@ angular.module('shared.services.bricks', [])
                 defer.resolve(mockdata);
 
                 return defer.promise;
+            },
+
+            saveBrick: function(coords, brick){
+                console.log('Saving Object at: ', coords);
+                console.log('Object: ', brick);
             }
         };
 });

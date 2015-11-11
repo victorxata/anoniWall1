@@ -916,6 +916,8 @@ angular.module('common.fabric', [
 				$timeout(function() {
 					self.updateActiveObjectOriginals();
 					self.setDirty(true);
+
+					// TODO:  notify modified to controller
 				});
 			});
 		};

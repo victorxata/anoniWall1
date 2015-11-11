@@ -162,8 +162,17 @@ angular.module('Home')
             //
 
             $scope.save = function(){
-                alert('Saving...');
-                console.log('Saving...');
+
+                angular.forEach($scope.objects, function(object){
+                    bricksService.saveBrick($scope.coords, object);
+                });
+
+                $scope.fabric.setDirty(false);
+            };
+
+            $scope.cancel = function(){
+                $scope.fabric.deleteActiveObject();
+                $scope.fabric.setDirty(false);
             };
 
             $scope.grayscale = false;

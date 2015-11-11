@@ -90,6 +90,15 @@ textarea {
     will-change: top,left;
 }
 
+.saveMenu{
+    position:fixed;
+    top:60px;
+    right:0;
+    padding:10px;
+    z-index: 21;
+    will-change: top,right;
+}
+
 .btn-round {
     background-color: #d23f31;
     border-radius: 999em;
@@ -120,4 +129,6 @@ textarea {
 .orange { background-color: #D28031; }
 
 .btn-round i { margin-top: 25px; margin-left:25px;  }
+
+.saveMenu ul i{margin-top:20px!important; margin-left:20px!important;}
 
