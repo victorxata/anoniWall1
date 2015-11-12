@@ -9,7 +9,9 @@ angular.module('anoniWall', [
     'common.fabric.utilities',
     'geolocation',
     'Home',
-    'shared.services.bricks'
+    'shared.services.bricks',
+    'shared.models.BricksModel',
+    'common.shared'
 ])
     .config(function($stateProvider, $urlRouterProvider){
         $urlRouterProvider.otherwise('/home');

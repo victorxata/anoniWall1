@@ -214,13 +214,13 @@
 <div class="addMenu" ng-hide="fabric.isDirty()">
     <ul class="list-inline">
         <li>
-            <div class="btn-round" ng-click="addRect()"><span>+&nbsp</span><i class='fa fa-square'></i></div>
+            <div ng-show="coords !== null" class="btn-round" ng-click="addRect()"><span>+&nbsp</span><i class='fa fa-square'></i></div>
         </li>
         <li>
-            <div class="btn-round blue" ng-click="addImage()"><span>+&nbsp</span><i class='fa fa-image'></i></div>
+            <div ng-show="coords !== null" class="btn-round blue" ng-click="addImage()"><span>+&nbsp</span><i class='fa fa-image'></i></div>
         </li>
         <li>
-            <div class="btn-round orange" ng-click="addText()"><span>+&nbsp</span><i class='fa fa-font'></i></div>
+            <div ng-show="coords !== null" class="btn-round orange" ng-click="addText()"><span>+&nbsp</span><i class='fa fa-font'></i></div>
         </li>
     </ul>
 

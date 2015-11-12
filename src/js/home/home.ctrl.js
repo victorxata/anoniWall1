@@ -165,10 +165,12 @@ angular.module('Home')
             //
 
             $scope.save = function(){
-
-                angular.forEach($scope.objects, function(object){
-                    bricksService.saveBrick($scope.coords, object);
-                });
+                var obj = $scope.fabric.selectedObject;
+                //angular.forEach($scope.objects, function(object){
+                var brick = bricksService.createBrick($scope.coords, obj);
+                bricksService.saveBrick(brick).then();
+                    //bricksService.saveBrick($scope.coords, object);
+               // });
 
                 $scope.fabric.setDirty(false);
             };

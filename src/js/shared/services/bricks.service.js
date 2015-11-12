@@ -3,7 +3,37 @@
  */
 'use strict';
 angular.module('shared.services.bricks', [])
-    .factory('bricksService', function($q){
+    .factory('bricksService', function($q, baseRoute, $http, $injector){
+
+        function _createBrick(coords, innerObject){
+            var brick = {};
+            brick.coordinates = [];
+            brick.coordinates.push(coords.lat);
+            brick.coordinates.push(coords.long);
+            brick.object = innerObject;
+            brick.type = 'Point';
+            return brick;
+        }
+
+        function _saveBrick(brick){
+            var deferred = $q.defer(),
+                $http = $injector.get('$http');
+
+            $http({method: 'POST',
+                url: baseRoute.apiRoute() + '/bricks',
+                data: brick,
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(
+                    function(response){
+                        deferred.resolve(response.data);
+                    },
+                    function(response){
+                        deferred.reject(response.data);
+                    });
+
+            return deferred.promise;
+        }
 
         return {
 
@@ -22,9 +52,10 @@ angular.module('shared.services.bricks', [])
                 return defer.promise;
             },
 
-            saveBrick: function(coords, brick){
-                console.log('Saving Object at: ', coords);
-                console.log('Object: ', brick);
-            }
-        };
+            createBrick: _createBrick,
+
+            saveBrick: _saveBrick
+
+
+    };
 });
